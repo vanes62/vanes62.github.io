@@ -1,0 +1,356 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+.open-sans-open {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300px;
+  font-style: normal;
+  font-variation-settings:"wdth" 100;
+}
+
+body{
+    background-color: black;
+    color: white;
+}
+.titolo{
+    position:relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    width:100%;
+    z-index:2;
+}
+.photo{
+    position:relative;
+    width: 100%;
+    height: 100vh;
+    aspect-ratio: 16/9;
+    display: flex;
+    flex-direction: column;
+    padding-bottom:100px;
+    flex:1;
+    justify-content: center; /* Centra il video orizzontalmente */
+    align-items: flex-end;
+    overflow: hidden;
+}
+.photo video {
+    position: absolute; /* Posizionamento assoluto per il video */
+    bottom: 0; /* Posiziona il video al fondo del contenitore */
+    left: 0;
+    width: 100%; /* Il video si adatta alla larghezza del contenitore */
+    height: 100%; /* Mantiene le proporzioni del video */
+    z-index: 1; /* Assicurati che il video sia sotto i pulsanti */
+    outline:none;
+    object-fit: cover;
+}
+.photo::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px; /* Altezza del gradiente */
+    background: linear-gradient(to bottom, transparent, black); /* Colori e direzione del gradiente */
+    z-index: 2; /* Assicurati che il gradiente sia sopra il video */
+}
+
+.info {
+    position: absolute; /* Posizionamento relativo per i pulsanti */
+    bottom:300px;
+    left: 30px;
+    z-index: 2; /* Assicurati che i pulsanti siano sopra il video */
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.info button {
+    border: solid;
+    width: 160px;
+    height: 40px;
+    font-size: 18px;
+    background-color: rgba(255, 255, 255, 0.8); /* Colore con opacità per pulsanti */
+    color: black;
+    cursor: pointer;
+}
+
+.biografia {
+    position: relative;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: -270px; /* Sovrappone il video parzialmente */
+    padding-top: 50px; /* Spazio sopra il contenitore */
+    z-index:2;
+    background: transparent;
+}
+.biografia .content {
+    display: flex;
+    flex-wrap: wrap; /* Permette che i box si adattino alla larghezza del contenitore */
+    gap: 10px; /* Spazio tra i box */
+}
+
+.biografia .box {
+    width: 200px; /* Larghezza fissa per i box */
+    height: 112px; /* Altezza fissa per i box */
+    overflow: hidden; /* Nasconde la parte dell'immagine che esce dai bordi del box */
+}
+.biografia .box img {
+    /*max-width: 100%; */ /* Mantiene l'immagine all'interno del box */
+    /*max-height: 100%;*/ /* Mantiene l'immagine all'interno del box */
+    /*object-fit: contain;*/ /* Copre il box senza deformare l'immagine */
+    width: 100%; /* Adatta l'immagine alla larghezza del contenitore */
+    height: auto; /* Mantiene le proporzioni originali */
+    object-fit: cover; /* Assicura che l'immagine copra il box */
+}
+
+.scroll-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.scroll-button {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.scroll-button.left {
+    position: absolute;
+    left: 0;
+}
+
+.scroll-button.right {
+    position: absolute;
+    right: 0;
+}
+.content {
+    display: flex;
+    gap: 10px; /* Spazio tra i div */
+    overflow-x: auto; /* Permetti lo scroll orizzontale */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    white-space: nowrap;
+}
+.nuovi .content {
+    display: flex;
+    overflow-x: auto; /* Abilita lo scorrimento orizzontale */
+    white-space: nowrap; /* Evita la rottura della riga */
+    gap: 10px; /* Spazio tra le immagini */
+}
+
+.nuovi .content .box {
+    flex: 0 0 auto; /* Non permette che i box si restringano */
+    width: 200px;
+    max-height: 112px; /* Limita l'altezza del box */
+    overflow: hidden; 
+}
+
+.nuovi .content .box img {
+    width: auto; /* Immagine si adatta al box */
+    height: height; /* Mantiene le proporzioni originali */
+    object-fit: contain; /* Mantiene l'immagine senza tagliarla */
+}
+
+
+.box{
+    flex: 0 0 auto;
+    width: 200px;
+    height: 112px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+/* Stile per ingrandire l'immagine su hover */
+.box:hover {
+    transform: scale(1.2); /* Aumenta l'immagine al 120% */
+    z-index: 10; /* Assicurati che l'immagine in primo piano */
+}
+
+/* Ridimensiona le altre immagini quando una è ingrandita */
+.box:not(:hover) {
+    transform: scale(0.98); /* Riduci le immagini al 80% */
+}
+
+.app{
+    
+    margin-left: auto; 
+    margin-right: auto;
+}
+.bottone{
+    display: flex;
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center;
+    gap: 10px;
+    margin-right:40px;
+    button{
+        border:solid;
+        width: 90px;  /* Imposta una larghezza fissa */
+        height: 40px;  /* Imposta un'altezza fissa */
+        font-size: 16px;  /* Aumenta la dimensione del testo */
+    }
+    
+
+}.category-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.filter-button {
+    border: none;
+    background-color: #f1f1f1;
+    color: #000;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.filter-button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.category-buttons button:hover {
+    background-color: #ddd;
+}
+
+.content .box {
+    display: none; /* Nasconde tutti i video per impostazione predefinita */
+}
+
+.content .box.active {
+    display: block; /* Mostra solo i video attivi */
+}
+footer{
+    height:100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a{
+        color:black;  
+    }
+}
+
+
+/* Per schermi grandi, come desktop con risoluzioni superiori a 1280px */
+@media (min-width: 1280px) {
+    .box {
+        width: 20vw; /* Larghezza maggiore per schermi grandi */
+        height: auto;
+    }
+
+    .info button {
+        width: 10rem; /* Larghezza più grande per i pulsanti */
+        font-size: 1rem; /* Dimensione del testo dei pulsanti */
+    }
+
+    .titolo {
+        padding: 1rem;
+    }
+    .photo {
+        height: calc(100vh - 100px); /* Video riempie l'altezza rimanente */
+    }
+
+    .biografia, .nuovi, .momenti {
+        margin-top: 0px; /* Riposiziona correttamente sotto il video */
+    }
+}
+
+/* Per schermi medi, come laptop con risoluzioni tra 1024px e 1279px */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .box {
+        width: 25vw; /* Larghezza ridotta rispetto agli schermi grandi */
+    }
+
+    .info button {
+        width: 9rem;
+        font-size: 0.9rem;
+    }
+
+    .titolo {
+        padding: 0.8rem;
+    }
+    .photo {
+        height: calc(100vh - 100px); /* Video riempie l'altezza rimanente */
+    }
+
+    .biografia, .nuovi, .momenti {
+        margin-top: 0;
+    }
+}
+
+/* Per schermi piccoli, come tablet e laptop con risoluzioni tra 768px e 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .box {
+        width: 30vw; /* Larghezza ancora più ridotta */
+    }
+
+    .info button {
+        width: 8rem;
+        font-size: 0.8rem;
+    }
+
+    .titolo {
+        padding: 0.6rem;
+    }
+    .photo {
+        height: auto; /* Mantiene il rapporto 16:9 */
+    }
+
+    .biografia{
+        margin-top: 10px;
+    }
+}
+
+/* Per schermi molto piccoli, come smartphone in modalità orizzontale e verticale con risoluzioni inferiori a 768px */
+@media (max-width: 767px) {
+    .box {
+        width: 30vw; /* Larghezza ottimizzata per schermi molto piccoli */
+    }
+
+    .info button {
+        width: 7rem;
+        font-size: 0.7rem;
+    }
+
+    .titolo {
+        padding: 0.4rem;
+    }
+    .photo {
+        height: auto;
+    }
+
+    .biografia{
+        margin-top: -200px;
+    }
+}
+
+/* Per schermi ultra-piccoli o mobile in orientamento verticale */
+@media (max-width: 480px) {
+    .box {
+        width: 18vw; /* Adatta la larghezza per schermi ultra-piccoli */
+        
+    }
+    
+
+    .info button {
+        width: 6rem;
+        font-size: 0.6rem;
+    }
+
+    .titolo {
+        padding: 0.2rem;
+    }
+}

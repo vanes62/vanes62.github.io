@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <main>
+        <div class="titolo">
+            <div class="app">
+                <img src="assets/images/straykidslogo.png" alt="Logo" style="width:100px;">
+            </div>
+            <div class="bottone contenuto">
+                <button>Registrati</button>
+                <button>Accedi</button>
+            </div>
+        </div>
+        <div class="photo" style=" background-color: beige;">
+            
+            <div class="info">
+                <div class="nome"></div>
+                <button> <i class="fa-solid fa-play"></i> Riproduci</button>
+                <button><i class="fa-solid fa-circle-info"></i> Info</button>
+                
+            </div><video id="video" width="100%" height="auto" muted>
+                <source src="assets/videos/ccbteaser.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div>
+            <div class="biografia" style="margin-left: 30px; margin-right: 30px;" >
+                <h2 class="open-sans-open">Biografie</h2>
+                <div class="content" style="gap:3px">
+                    <div style="background-color: blue;" class="box"><img src="assets/images/chan.jpeg" alt="" style="width: 100%; height:100%; object-fit: cover;"></div>
+                    <div style="background-color: magenta;" class="box"><img src="assets/images/lee know.jpeg" alt="" style="width: 100%; height:100%; object-fit: cover;"></div>
+                    <div style="background-color: green;" class="box"><img src="assets/images/han.jpeg" alt="" style="width: 100%; height:100%; object-fit: cover;"></div>
+                    <div style="background-color: red;" class="box"><img src="assets/images/changbin.jpeg" alt="" style="width: 100%; height:100%; object-fit: cover;"></div>
+                    <div style="background-color: yellow;" class="box"><img src="assets/images/seungmin.jpeg" alt="" style="width: 100%; height:100%; object-fit: cover;"></div>
+                    <div style="background-color: blueviolet;" class="box"><img src="assets/images/Jeongin.jpeg" alt="" style="width: 100%; height:100%; object-fit: cover;"></div>
+                    <div style="background-color: gray;" class="box"><img src="assets/images/hyunjin.jpeg" alt="" style="width: 100%; height:100%; object-fit: cover;"></div>
+                    <div style="background-color: peru;" class="box"><img src="assets/images/Felix.jpeg" alt="" style="width: 100%; height:100%; object-fit: cover;"></div>
+                </div>
+            </div>
+            <div class="nuovi" style="margin-left: 30px; margin-right: 30px; position: relative; z-index: 2;">
+                <h2 class="open-sans-open">Aggiunti di recente</h2>
+                <div class="category-buttons">
+                    <button class="filter-button" data-category="shorts">Shorts</button>
+                    <button class="filter-button" data-category="live">Live</button>
+                    <button class="filter-button" data-category="normal">Video Normali</button>
+                </div>
+                <div class="scroll-container">
+                    <button class="scroll-button left"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="content" id="nuovi">
+                        <!-- I video verranno inseriti qui -->
+                    </div>
+                    <button class="scroll-button right"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div class="momenti" style="margin-left: 30px; margin-right: 30px;">
+                <h2 class="open-sans-open">Funny moments</h2>
+                <div class="content">
+                    <div style="background-color: darkgoldenrod;" class="box">1</div>
+                    <div style="background-color: gray;" class="box">2</div>
+                    <div style="background-color: peru;" class="box">3</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <footer>
+        <a href="#">Copyright - All rights reserved</a>
+    </footer>
+
+    <script>
+        // Ottieni l'elemento video
+        const video = document.getElementById('video');
+    
+        // Variabile per memorizzare il timer
+        let hoverTimer;
+    
+        // Funzione per iniziare a riprodurre il video e attivare l'audio
+        function startVideo() {
+            video.play();
+            video.muted = false; // Attiva l'audio
+        }
+    
+        // Gestisci l'evento mouseover
+        video.addEventListener('mouseover', () => {
+            // Avvia il timer di 3 secondi
+            hoverTimer = setTimeout(startVideo, 2000);
+        });
+    
+        // Gestisci l'evento mouseout
+        video.addEventListener('mouseout', () => {
+            // Annulla il timer se il mouse esce prima dei 3 secondi
+            clearTimeout(hoverTimer);
+            // Ferma la riproduzione del video e disattiva l'audio
+            video.pause();
+            video.currentTime = 0; // Riporta il video all'inizio
+            video.muted = true; // Disattiva l'audio
+        });
+
+        fetch('http://localhost:3000/recent-videos')
+        .then(response => response.json())
+        .then(videos => {
+            const videoContainer = document.getElementById('nuovi');
+            videos.forEach(video => {
+                const videoElement = document.createElement('div');
+                videoElement.classList.add('box');
+                videoElement.innerHTML = `
+                    <img src="${video.thumbnail}" alt="Anteprima del video">
+                    <h3>${video.title}</h3>
+                    <a href="${video.link}" target="_blank">Guarda su YouTube</a>
+                `;
+                videoContainer.appendChild(videoElement);
+            });
+        })
+        .catch(error => {
+            console.error('Errore nel caricamento dei video:', error);
+        });
+            document.addEventListener('DOMContentLoaded', () => {
+    const prevButton = document.querySelector('.carousel-button.prev');
+    const nextButton = document.querySelector('.carousel-button.next');
+    const content = document.getElementById('nuovi');
+
+    prevButton.addEventListener('click', () => {
+        content.scrollBy({
+            left: -content.clientWidth * 0.8, // Scorri a sinistra del 80% della larghezza del contenitore
+            behavior: 'smooth'
+        });
+    });
+
+    nextButton.addEventListener('click', () => {
+        content.scrollBy({
+            left: content.clientWidth * 0.8, // Scorri a destra del 80% della larghezza del contenitore
+            behavior: 'smooth'
+        });
+    });
+});
+document.querySelector('.scroll-button.left').addEventListener('click', () => {
+    document.getElementById('nuovi').scrollBy({
+        left: -200, // Modifica il valore per cambiare la distanza dello scorrimento
+        behavior: 'smooth'
+    });
+});
+
+document.querySelector('.scroll-button.right').addEventListener('click', () => {
+    document.getElementById('nuovi').scrollBy({
+        left: 200, // Modifica il valore per cambiare la distanza dello scorrimento
+        behavior: 'smooth'
+    });
+});
+    </script>
+</body>
+</html>
